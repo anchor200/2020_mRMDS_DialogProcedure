@@ -24,13 +24,16 @@ public class DialogManager : MonoBehaviour
             ImportedConst.PlayerProf = ImportedConst.ReadCSVFromOutOfBuild(ImportedConst.NamePath, true);
             ImportedConst.PlayerOpn = ImportedConst.ReadCSVFromOutOfBuild(ImportedConst.OpnPath, true);
             ImportedConst.MNetworkSettings = ImportedConst.ReadCSVFromOutOfBuild("PRESET/network_to_M.csv");
+
+            // Debug.Log(ImportedConst.PlayerOpn[0][1]);
+
         }
-        catch (IOException e)
+        catch (IOException)
         {
             Debug.Log("ファイルが見つかりません");
             SceneManager.LoadScene("ImportEtc");
         }
-        catch (ArgumentNullException e)
+        catch (ArgumentNullException)
         {
             Debug.Log("ファイルパスが不正です");
             SceneManager.LoadScene("ImportEtc");
@@ -39,26 +42,32 @@ public class DialogManager : MonoBehaviour
         string ipOrHost = "127.0.0.1";
         int port = 1000;
 
-        ipOrHost = ImportedConst.MNetworkSettings[0][0];
-        port = int.Parse(ImportedConst.MNetworkSettings[0][1]);
-
-        Debug.Log("Making Con " + ipOrHost + ":" + ImportedConst.MNetworkSettings[0][1]);
-
-
-        myclient = new TCPClient(ipOrHost, port);
-        while (true)
+        try
         {
+            ipOrHost = ImportedConst.MNetworkSettings[0][0];
+            port = int.Parse(ImportedConst.MNetworkSettings[0][1]);
+
+            Debug.Log("Making Con " + ipOrHost + ":" + ImportedConst.MNetworkSettings[0][1]);
+            myclient = new TCPClient(ipOrHost, port);
+
             try
             {
                 myclient.Connect();
-                break;
+
+                myclient.Send("<ID>:" + ImportedConst.PlayerProf[0][0] + "\n");
             }
             catch (SocketException)
             {
                 Debug.Log("接続再試行");
-                continue;
+                // this.Start();
+                SceneManager.LoadScene("ImportEtc");
             }
         }
+        catch (NullReferenceException)
+        {
+
+        }
+
 
     }
 

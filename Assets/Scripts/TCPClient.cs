@@ -60,7 +60,7 @@ namespace TCPetc
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.Log(ex.Message);
                 return;
             }
 
@@ -70,6 +70,8 @@ namespace TCPetc
             {
                 Debug.Log($"{Encoding.UTF8.GetString(this.Buffer, 0, byteSize)}");
                 socket.BeginReceive(this.Buffer, 0, this.Buffer.Length, SocketFlags.None, ReceiveCallback, socket);
+                ChoiceClass.InputHolder = Encoding.UTF8.GetString(this.Buffer, 0, byteSize);
+                ChoiceClass.WaitOperation = true;
             }
         }
     }

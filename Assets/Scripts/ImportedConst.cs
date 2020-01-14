@@ -12,7 +12,7 @@ public static class ImportedConst
     public static string NamePath;
     public static string OpnPath;
 
-    public static List<string[]> PlayerProf;
+    public static List<string[]> PlayerProf;  //[0][0]がID、[0][1]が名前とかだった気がする
     public static List<string[]> PlayerOpn;
 
     // 母艦とのアドレス　上のこみゅーのは使わない
@@ -52,7 +52,7 @@ public static class ImportedConst
                 // Debug.Log(line);
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
             string[] err = { "われ思う、故に我在り。" };
             tempList.Add(err);
