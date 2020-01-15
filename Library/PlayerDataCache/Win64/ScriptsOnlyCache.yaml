@@ -14,6 +14,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.ContentSizeFitter
+    - UnityEngine.UI.Dropdown
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
@@ -22,6 +23,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/DialogMaster.unity:
@@ -115,11 +117,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9834}
     - Class: 114
+      Script: {instanceID: 9836}
+    - Class: 114
       Script: {instanceID: 9874}
     - Class: 114
       Script: {instanceID: 10146}
     - Class: 114
+      Script: {instanceID: 10168}
+    - Class: 114
       Script: {instanceID: 10258}
+    - Class: 114
+      Script: {instanceID: 10428}
     - Class: 114
       Script: {instanceID: 10612}
     - Class: 114
@@ -127,7 +135,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11070}
     - Class: 114
+      Script: {instanceID: 11414}
+    - Class: 114
       Script: {instanceID: 11426}
+    - Class: 114
+      Script: {instanceID: 11440}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -295,7 +307,7 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: b1d6e43ed6e9b4e3a1878c440093c3fa
+      Hash: cf726e4e5ded2eab1c2628a140443266
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ImportEtc
@@ -367,7 +379,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 26b88fbce8d9475522d1ffbdac3f6d5c
+      Hash: d17977fa35f1ff34e89d4e39faafc611
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ChoiceButton

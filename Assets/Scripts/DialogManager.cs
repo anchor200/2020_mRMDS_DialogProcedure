@@ -21,8 +21,8 @@ public class DialogManager : MonoBehaviour
 
             Debug.Log("Loading Files");
 
-            ImportedConst.PlayerProf = ImportedConst.ReadCSVFromOutOfBuild(ImportedConst.NamePath, true);
-            ImportedConst.PlayerOpn = ImportedConst.ReadCSVFromOutOfBuild(ImportedConst.OpnPath, true);
+            // ImportedConst.PlayerProf = ImportedConst.ReadCSVFromOutOfBuild(ImportedConst.NamePath, true);
+            // ImportedConst.PlayerOpn = ImportedConst.ReadCSVFromOutOfBuild(ImportedConst.OpnPath, true);
             ImportedConst.MNetworkSettings = ImportedConst.ReadCSVFromOutOfBuild("PRESET/network_to_M.csv");
 
             // Debug.Log(ImportedConst.PlayerOpn[0][1]);
@@ -54,7 +54,8 @@ public class DialogManager : MonoBehaviour
             {
                 myclient.Connect();
 
-                myclient.Send("<ID>:" + ImportedConst.PlayerProf[0][0]);
+                myclient.Send("<ID>:" + ImportedConst.YourID);
+                Debug.Log("<ID>:" + ImportedConst.YourID);
             }
             catch (SocketException)
             {

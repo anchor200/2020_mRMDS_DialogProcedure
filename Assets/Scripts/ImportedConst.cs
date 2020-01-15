@@ -14,6 +14,7 @@ public static class ImportedConst
 
     public static List<string[]> PlayerProf;  //[0][0]がID、[0][1]が名前とかだった気がする
     public static List<string[]> PlayerOpn;
+    public static string YourID;
 
     // 母艦とのアドレス　上のこみゅーのは使わない
     public static List<string[]> MNetworkSettings;

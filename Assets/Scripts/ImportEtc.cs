@@ -11,6 +11,7 @@ public class ImportEtc : MonoBehaviour
 
     public InputField input_field_path_1;
     public InputField input_field_path_2;
+    public Dropdown IDField;
 
     // Use this for initialization
     void Start()
@@ -79,6 +80,7 @@ public class ImportEtc : MonoBehaviour
     public void OnButtonProceed()
     {
         SceneManager.LoadScene("DialogMaster");
+        ImportedConst.YourID = IDField.captionText.text;
     }
 
 }
