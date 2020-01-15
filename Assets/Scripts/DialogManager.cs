@@ -54,7 +54,7 @@ public class DialogManager : MonoBehaviour
             {
                 myclient.Connect();
 
-                myclient.Send("<ID>:" + ImportedConst.PlayerProf[0][0] + "\n");
+                myclient.Send("<ID>:" + ImportedConst.PlayerProf[0][0]);
             }
             catch (SocketException)
             {

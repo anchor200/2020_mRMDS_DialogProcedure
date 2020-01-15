@@ -585,4 +585,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/ImportEtc.unity
   - Assets/Scenes/DialogMaster.unity
-  playerPath: C:/Users/taiwajikken/Desktop/exp2/DialogProcedure.exe
+  playerPath: "C:/Users/taiwajikken/Desktop/\u5B9F\u9A13\u7528/exp2/DialogProcedure.exe"

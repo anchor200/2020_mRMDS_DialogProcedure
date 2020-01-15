@@ -125,7 +125,7 @@ public class MessageHandler : MonoBehaviour
             return;
         }
 
-        string log = "<Command>:" + CurrentChoices[index][0] + "," + CurrentChoices[index][2];
+        string log = "<Command>:" + ImportedConst.PlayerProf[0][0] + "," + CurrentChoices[index][0] + "," + CurrentChoices[index][2];  // ロボID、発話ID、文言
         Debug.Log("pressed by " + log);
         int i = 0;
 
