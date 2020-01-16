@@ -370,6 +370,8 @@ MonoBehaviour:
   ChoiceField: {fileID: 785999903}
   ChoicePrefab: {fileID: 6803713485826042869, guid: e01f4b4bc0f68c44a8bdef541d3c988d,
     type: 3}
+  ChoicePrefabSystemButton: {fileID: 6803713485826042869, guid: f338503fe25d9c94c9c5f3cb4e758c13,
+    type: 3}
   manager: {fileID: 465068606}
 --- !u!1 &785999903
 GameObject:
@@ -406,7 +408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -266.25}
+  m_AnchoredPosition: {x: -0.000030517578, y: -106.681145}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &785999905
@@ -709,7 +711,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 868684935}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.49999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

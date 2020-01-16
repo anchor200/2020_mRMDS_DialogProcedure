@@ -10,6 +10,7 @@ public class MessageHandler : MonoBehaviour
     public GameObject ChoiceField;
     Transform choiceTransform;
     public GameObject ChoicePrefab;
+    public GameObject ChoicePrefabSystemButton;
 
     public GameObject manager;
     DialogManager dialogManager;
@@ -102,12 +103,25 @@ public class MessageHandler : MonoBehaviour
         int i = 0;
         foreach (string[] choice in CurrentChoices)
         {
+            GameObject listChoice = Instantiate(ChoicePrefab) as GameObject; ;
+            if (choice[2][0] == '@')
+            {
+                //プレハブからボタンを生成
+                listChoice = Instantiate(ChoicePrefabSystemButton) as GameObject;
+            }
+            if (choice[2][0] == '$')
+            {
+                string log = "<Command>:" + ImportedConst.YourID + "," + CurrentChoices[i][0] + "," + CurrentChoices[i][3] + "," + CurrentChoices[i][4];  // ロボID、発話ID、読まれる内容そのまま、ジェスチャのための態度
+                dialogManager.myclient.Send(log);
+                i++;
+                continue;
+            }
+
             //プレハブからボタンを生成
-            GameObject listChoice = Instantiate(ChoicePrefab) as GameObject;
             //Vertical Layout Group の子にする
             listChoice.transform.SetParent(choiceTransform, false);
 
-            listChoice.transform.Find("Text").GetComponent<Text>().text = choice[2];
+            listChoice.transform.Find("Text").GetComponent<Text>().text = choice[2].Replace("@", "");
 
             int n = i;
             //引数に何番目のボタンかを渡す
@@ -115,6 +129,8 @@ public class MessageHandler : MonoBehaviour
 
             i++;
         }
+        buttonflag = false;
+
     }
 
     void SearchOnClick(int index)
@@ -125,7 +141,7 @@ public class MessageHandler : MonoBehaviour
             return;
         }
 
-        string log = "<Command>:" + ImportedConst.YourID + "," + CurrentChoices[index][0] + "," + CurrentChoices[index][2];  // ロボID、発話ID、文言
+        string log = "<Command>:" + ImportedConst.YourID + "," + CurrentChoices[index][0] + "," + CurrentChoices[index][3] + "," + CurrentChoices[index][4];  // ロボID、発話ID、読まれる内容そのまま、ジェスチャのための態度
         Debug.Log("pressed by " + log);
         int i = 0;
 
@@ -147,7 +163,7 @@ public class MessageHandler : MonoBehaviour
 
         buttonflag = true;
 
-        Invoke("WaitBeforeDestroy", 2);
+        Invoke("WaitBeforeDestroy", 1.8f);
 
         dialogManager.myclient.Send(log);
 
@@ -157,10 +173,13 @@ public class MessageHandler : MonoBehaviour
     {
         foreach (Transform n in choiceTransform)
         {
-            GameObject.Destroy(n.gameObject);
+            if (buttonflag == true)
+            {
+                GameObject.Destroy(n.gameObject);
+                Debug.Log("invoked");
+                // choiceTransform.DetachChildren();  // 過去の子供を全員抹消
+            }
         }
-        Debug.Log("invoked");
-        // choiceTransform.DetachChildren();  // 過去の子供を全員抹消
         buttonflag = false;
     }
 
