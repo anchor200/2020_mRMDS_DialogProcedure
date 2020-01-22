@@ -11,6 +11,7 @@ public class MessageHandler : MonoBehaviour
     Transform choiceTransform;
     public GameObject ChoicePrefab;
     public GameObject ChoicePrefabSystemButton;
+    public GameObject ChoicePrefabSystemWindow;
 
     public GameObject manager;
     DialogManager dialogManager;
@@ -51,13 +52,23 @@ public class MessageHandler : MonoBehaviour
     }
 
 
-    public static bool IsChoice(string str)
+    public bool IsChoice(string str)
     {
         string[] temp = str.Split(':');
         Debug.Log(temp[0]);
         if (temp[0] == "<Choice>")
         {
             return true;
+        }
+        else if (temp[0] == "<Clear>")
+        {
+            choiceTransform = ChoiceField.transform;
+            foreach (Transform n in choiceTransform)
+            {
+                GameObject.Destroy(n.gameObject);
+            }
+            choiceTransform.DetachChildren();  // 過去の子供を全員抹消
+            return false;
         }
         else
         {
@@ -109,6 +120,11 @@ public class MessageHandler : MonoBehaviour
                 //プレハブからボタンを生成
                 listChoice = Instantiate(ChoicePrefabSystemButton) as GameObject;
             }
+            if (choice[2][0] == '&')
+            {
+                //プレハブからボタンを生成
+                listChoice = Instantiate(ChoicePrefabSystemWindow) as GameObject;
+            }
             if (choice[2][0] == '$')
             {
                 string log = "<Command>:" + ImportedConst.YourID + "," + CurrentChoices[i][0] + "," + CurrentChoices[i][3] + "," + CurrentChoices[i][4];  // ロボID、発話ID、読まれる内容そのまま、ジェスチャのための態度
@@ -121,7 +137,7 @@ public class MessageHandler : MonoBehaviour
             //Vertical Layout Group の子にする
             listChoice.transform.SetParent(choiceTransform, false);
 
-            listChoice.transform.Find("Text").GetComponent<Text>().text = choice[2].Replace("@", "");
+            listChoice.transform.Find("Text").GetComponent<Text>().text = choice[2].Replace("@", "").Replace("#", "\n").Replace("&", "");
 
             int n = i;
             //引数に何番目のボタンかを渡す
