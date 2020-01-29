@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/DialogMaster.unity
+- path: Assets/Scenes/ImportEtc.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

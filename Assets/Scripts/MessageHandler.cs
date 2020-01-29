@@ -27,8 +27,12 @@ public class MessageHandler : MonoBehaviour
     {
         if (ChoiceClass.WaitOperation == true)
         {
-            this.OnReceive(ChoiceClass.InputHolder);  // うけとっためっせーじから選択肢を生成
+            if (this.OnReceive(ChoiceClass.InputHolder) < 1)
+            {  // うけとっためっせーじから選択肢を生成
+                dialogManager.myclient.Send("<SendAgain>");
+            }
             ChoiceClass.WaitOperation = false;
+            
         }
 
     }
@@ -89,7 +93,7 @@ public class MessageHandler : MonoBehaviour
         return temp;
     }
 
-    private void OnReceive(string message)
+    private int OnReceive(string message)
     {
         quitCounter = 0;
 
@@ -97,11 +101,13 @@ public class MessageHandler : MonoBehaviour
         {
             CurrentChoices = ParserC(message.Split(':')[1]);  // List<string[]>で全選択肢の情報を持っている→これを各ボタンに割り当てる
             Debug.Log(message.Split(':')[1]);
+
+ 
         }
         else
         {
             Debug.Log("不正な入力（選択肢ではない）");
-            return;
+            return 0;
         }
 
         choiceTransform = ChoiceField.transform;
@@ -114,6 +120,7 @@ public class MessageHandler : MonoBehaviour
         int i = 0;
         foreach (string[] choice in CurrentChoices)
         {
+            Debug.Log(choice[2][0]);
             GameObject listChoice = Instantiate(ChoicePrefab) as GameObject; ;
             if (choice[2][0] == '@')
             {
@@ -128,10 +135,48 @@ public class MessageHandler : MonoBehaviour
             if (choice[2][0] == '$')
             {
                 string log = "<Command>:" + ImportedConst.YourID + "," + CurrentChoices[i][0] + "," + CurrentChoices[i][3] + "," + CurrentChoices[i][4];  // ロボID、発話ID、読まれる内容そのまま、ジェスチャのための態度
-                dialogManager.myclient.Send(log);
+                                                                                                                                                          // dialogManager.myclient.Send(log);
+
+                if (ChoiceClass.LastSpeaker == "A")
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, 0));
+                if (ChoiceClass.LastSpeaker == "B")
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, -90));
+                if (ChoiceClass.LastSpeaker == "C")
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, -180));
+                if (ChoiceClass.LastSpeaker == "D")
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, -270));
+
+                Debug.Log("rotation");
+                Debug.Log(CurrentChoices[0][1]);
+                if (CurrentChoices[0][1] == "A")
+                {
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, 0));
+                    Debug.Log("plus 0");
+                }
+
+                if (CurrentChoices[0][1] == "B")
+                {
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, 90));
+                    Debug.Log("plus 90");
+                }
+                if (CurrentChoices[0][1] == "C")
+                {
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, 180));
+                    Debug.Log("plus 180");
+                }
+
+                if (CurrentChoices[0][1] == "D")
+                {
+                    ChoiceField.transform.Rotate(new Vector3(0, 0, 270));
+                    Debug.Log("plus 270");
+                }
+
+                ChoiceClass.LastSpeaker = CurrentChoices[0][1];  // 最後に話したロボットのID
+
                 i++;
                 continue;
             }
+
 
             //プレハブからボタンを生成
             //Vertical Layout Group の子にする
@@ -144,8 +189,12 @@ public class MessageHandler : MonoBehaviour
             listChoice.GetComponent<Button>().onClick.AddListener(() => SearchOnClick(n));
 
             i++;
+
         }
         buttonflag = false;
+
+
+        return i;
 
     }
 
